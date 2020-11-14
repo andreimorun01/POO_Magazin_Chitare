@@ -16,6 +16,10 @@ private:
     bool Tip_Lemn; /* 0-> stejar 2-> mahon*/
 public:
     Chitara(std::string Nume_Chitara, int Numar_Corzi, bool Tip_Lemn);
+    Chitara()=default;
+
+    friend std::ostream &operator<<(std::ostream &os, const Chitara &chitara);
+
     ~Chitara()
     {
 

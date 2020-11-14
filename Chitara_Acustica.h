@@ -21,4 +21,12 @@ public:
     {
 
     }
+
+    friend std::ostream &operator<<(std::ostream &os, const Chitara_Acustica &acustica);
 };
+
+std::ostream &operator<<(std::ostream &os, const Chitara_Acustica &acustica) {
+    os << static_cast<const Chitara &>(acustica) << " Marime: " << acustica.Marime << " Tip_Corzi: "
+       << acustica.Tip_Corzi << " Tip_Chitara: " << acustica.Tip_Chitara;
+    return os;
+}

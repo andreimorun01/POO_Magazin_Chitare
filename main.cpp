@@ -6,8 +6,8 @@
 
 int main()
 {
-
-
+    Chitara_Electrica c1;
+    std::cout<<c1;
 
     return 0;
 }

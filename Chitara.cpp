@@ -9,3 +9,9 @@ Chitara::Chitara(std::string Nume_Chitara, int Numar_Corzi, bool Tip_Lemn)
     this->Numar_Corzi=Numar_Corzi;
     this->Tip_Lemn=Tip_Lemn;
 }
+
+std::ostream &operator<<(std::ostream &os, const Chitara &chitara) {
+    os << "Nume_Chitara: " << chitara.Nume_Chitara << " Numar_Corzi: " << chitara.Numar_Corzi << " Tip_Lemn: "
+       << chitara.Tip_Lemn;
+    return os;
+}
