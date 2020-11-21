@@ -3,12 +3,13 @@
 //
 #include "Amplificator.h"
 
-Amplificator::Amplificator(std::string Nume_Amplificator)
+Amplificator::Amplificator(bool Amplif)
+
 {
-    this->Nume_Amplificator=Nume_Amplificator;
+    this->Amplif=Amplif;
 }
 
 std::ostream &operator<<(std::ostream &os, const Amplificator &amplificator) {
-    os << "Nume_Amplificator: " << amplificator.Nume_Amplificator;
+    os << "Amplif: " << amplificator.Amplif;
     return os;
 }

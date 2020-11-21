@@ -7,26 +7,33 @@
 #ifndef MAGAZIN_CHITARE_CHITARA_ACUSTICA_H
 #define MAGAZIN_CHITARE_CHITARA_ACUSTICA_H
 
-#endif //MAGAZIN_CHITARE_CHITARA_ACUSTICA_H
-
 class Chitara_Acustica : public Chitara
 {
 private:
-    int Marime; //3,4,5,6,7
-    bool Tip_Corzi; // 0->plastic, 1->metal
-    bool Tip_Chitara;//0->clasica, 1->electroacustica
+    std::string Tip_Corzi;
+    std::string Tip_Chitara;
 public:
-    Chitara_Acustica(int Marime, bool Tip_Corzi, bool Tip_Chitara);
+    Chitara_Acustica(std::string Nume_Chitara, int Nr_Corzi, std::string Tip_Lemn, Magazin_Chitare magazin, std::string Tip_Corzi, std::string Tip_Chitara);
     ~Chitara_Acustica()
     {
 
     }
 
     friend std::ostream &operator<<(std::ostream &os, const Chitara_Acustica &acustica);
-};
 
-std::ostream &operator<<(std::ostream &os, const Chitara_Acustica &acustica) {
-    os << static_cast<const Chitara &>(acustica) << " Marime: " << acustica.Marime << " Tip_Corzi: "
-       << acustica.Tip_Corzi << " Tip_Chitara: " << acustica.Tip_Chitara;
-    return os;
-}
+    const std::string &getTipCorzi() const;
+
+    void setTipCorzi(const std::string &tipCorzi);
+
+    const std::string &getTipChitara() const;
+
+    void setTipChitara(const std::string &tipChitara);
+
+
+
+};
+#endif //MAGAZIN_CHITARE_CHITARA_ACUSTICA_H
+
+/*
+ */
+

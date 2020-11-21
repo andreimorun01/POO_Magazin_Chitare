@@ -6,14 +6,16 @@
 #ifndef MAGAZIN_CHITARE_AMPLIFICATOR_H
 #define MAGAZIN_CHITARE_AMPLIFICATOR_H
 
-#endif //MAGAZIN_CHITARE_AMPLIFICATOR_H
-
 class Amplificator
 {
 private:
-    std::string Nume_Amplificator;
+    bool Amplif;// 0-> are 1->nu are
 public:
-    Amplificator(std::string Nume_Amplificator);
+    Amplificator(bool Amplif);
+    Amplificator()
+    {
+
+    }
     ~Amplificator()
     {
 
@@ -21,4 +23,12 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Amplificator &amplificator);
 
+    bool isAmplif() const {
+        return Amplif;
+    }
+
+    void setAmplif(bool Amplif) {
+        Amplificator::Amplif = Amplif;
+    }
 };
+#endif //MAGAZIN_CHITARE_AMPLIFICATOR_H

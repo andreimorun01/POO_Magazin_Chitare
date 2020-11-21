@@ -3,19 +3,21 @@
 //
 #include <iostream>
 
+#include "Magazin_Chitare.h"
+
 #ifndef MAGAZIN_CHITARE_CHITARA_H
 #define MAGAZIN_CHITARE_CHITARA_H
 
-#endif //MAGAZIN_CHITARE_CHITARA_H
-
-class Chitara
+class Chitara :public Magazin_Chitare
 {
 private:
     std::string Nume_Chitara;
     int Numar_Corzi;
-    bool Tip_Lemn; /* 0-> stejar 2-> mahon*/
+    std::string Tip_Lemn;
+    Magazin_Chitare magazin;
 public:
-    Chitara(std::string Nume_Chitara, int Numar_Corzi, bool Tip_Lemn);
+    Chitara(std::string Nume_Chitara, int Numar_Corzi, std::string Tip_Lemn, Magazin_Chitare magazin);
+
     Chitara()=default;
 
     friend std::ostream &operator<<(std::ostream &os, const Chitara &chitara);
@@ -24,4 +26,37 @@ public:
     {
 
     }
+
+    const std::string &getNumeChitara() const {
+        return Nume_Chitara;
+    }
+
+    int getNumarCorzi() const {
+        return Numar_Corzi;
+    }
+
+    const std::string &getTipLemn() const {
+        return Tip_Lemn;
+    }
+
+    const Magazin_Chitare &getMagazin() const {
+        return magazin;
+    }
+
+    void setNumeChitara(const std::string &numeChitara) {
+        Nume_Chitara = numeChitara;
+    }
+
+    void setNumarCorzi(int numarCorzi) {
+        Numar_Corzi = numarCorzi;
+    }
+
+    void setTipLemn(const std::string &tipLemn) {
+        Tip_Lemn = tipLemn;
+    }
+
+    void setMagazin(const Magazin_Chitare &magazin) {
+        Chitara::magazin = magazin;
+    }
 };
+#endif //MAGAZIN_CHITARE_CHITARA_H

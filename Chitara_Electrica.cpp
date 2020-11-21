@@ -4,8 +4,9 @@
 
 #include "Chitara_Electrica.h"
 
-Chitara_Electrica::Chitara_Electrica(int Numar_Duze, bool Tip_EQ, Amplificator amplificator)
+Chitara_Electrica::Chitara_Electrica(std::string Nume_Chitara, int Nr_Corzi, std::string Tip_Lemn, Magazin_Chitare magazin, int Numar_Duze, std::string Tip_EQ, Amplificator amplificator)
 {
+    Chitara(Nume_Chitara, Nr_Corzi, Tip_Lemn, magazin);
     this->Numar_Duze=Numar_Duze;
     this->Tip_EQ=Tip_EQ;
     this->amplificator=amplificator;
