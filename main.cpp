@@ -8,6 +8,7 @@
 #include <cstring>
 
 
+
 /*void Cautare()
 {
 
@@ -17,11 +18,15 @@
 int main()
 {
      std::string a;
-
      std::ifstream f("Date.in");
-     std::vector <Chitara> V;
-     //std::cout<<a;
-    while(!f.eof())
+     std::vector <Chitara *> V;
+     std::vector <Magazin_Chitare> Magazine;
+     Magazin_Chitare *Store;
+     Chitara *P;
+     Amplificator Amp;
+     //std::cout<<std::endl;
+     int y=0;
+     while(!f.eof())
     {
 
         f>>a;
@@ -30,7 +35,7 @@ int main()
             if (a == "acustica")
             {
                 f >> a;
-                std::string Nume_Chitara= "Chitara acustica" + a;
+                std::string Nume_Chitara= "Chitara acustica " + a;
 
                 int b;
                 f >> b;
@@ -41,6 +46,22 @@ int main()
 
                 f >> a;
                 std::string magazin= a;
+                bool gasit=false;
+                for(auto &i:Magazine)
+                {
+                    if(i.getNumeMagazin()==magazin)
+                    {
+                        gasit=true;
+                        Store=&i;
+                    }
+
+                }
+                if(!gasit)
+                {
+                    Store = new Magazin_Chitare(magazin);
+                    Magazine.push_back(*Store);
+                }
+
 
                 f >> a;
                 std::string Tip_Corzi = a;
@@ -48,15 +69,15 @@ int main()
                 f >> a;
                 std::string Tip_Chitara = a;
 
-                Chitara_Acustica c(Nume_Chitara, Nr_Corzi, Tip_Lemn, magazin, Tip_Corzi, Tip_Chitara);
-                V.push_back(c);
+                P=new Chitara_Acustica (Nume_Chitara, Nr_Corzi, Tip_Lemn, *Store, Tip_Corzi, Tip_Chitara);
+                V.push_back(P);
 
             }
 
             else if(a == "electrica")
             {
                 f >> a;
-                std::string Nume_Chitara= "Chitara electrica" + a;
+                std::string Nume_Chitara= "Chitara electrica " + a;
 
                 int b;
                 f >> b;
@@ -67,6 +88,21 @@ int main()
 
                 f >> a;
                 std::string magazin= a;
+                bool gasit=false;
+                for(auto &i:Magazine)
+                {
+                    if(i.getNumeMagazin()==magazin)
+                    {
+                        gasit=true;
+                        Store=&i;
+                    }
+
+                }
+                if(!gasit)
+                {
+                    Store = new Magazin_Chitare(magazin);
+                    Magazine.push_back(*Store);
+                }
 
                 int c;
                 f >> c;
@@ -79,15 +115,155 @@ int main()
                 f>>e;
                 bool amplificator=e;
 
-                Chitara_Electrica d (Nume_Chitara, Nr_Corzi, Tip_Lemn, magazin, Numar_Duze, Tip_EQ, amplificator);
-                V.push_back(d);
+                P= new Chitara_Electrica (Nume_Chitara, Nr_Corzi, Tip_Lemn, *Store, Numar_Duze, Tip_EQ, amplificator);
+                V.push_back(P);
+
 
             }
         }
 
     }
-    for(auto&i:V)
-       std::cout<<i<<std::endl;
+
+    f.close();
+    int optiune=1;
+    while (optiune !=0)
+    {
+        std::cout<<"Alegeti optiunea dvs: \n";
+        std::cout<<"0 - Inchidere program \n";
+        std::cout<<"1 - Afisare stoc chitare \n";
+        std::cout<<"2 - Adaugare chitara in stoc \n";
+        std::cout<<"3 - Se vinde o chitara catre un client \n";
+
+        std::cin>>optiune;
+        if(optiune == 1)
+        {
+            for(int i=0;i<V.size();i++)
+            {
+                V[i]->Afisare();
+                std::cout<<std::endl;
+            }
+        }
+        else if(optiune == 2)
+        {
+
+            std::string Nume, Tip_Lemn, Tip_Corzi, Tip_Chitara, Tip_EQ;
+            int Numar_Corzi, Numar_Duze;
+            std::string magazin;
+            std::string optiune;
+            bool Amplificator;
+            std::cout << "Tip Chitara - Acustica sau Electrica - > ";
+            std::cin >> optiune;
+            std::cout << "Nume Chitara: ";
+            std::cin >> Nume;
+            std::cout << "Numar corzi: ";
+            std::cin >> Numar_Corzi;
+            std::cout << "Tip lemn: ";
+            std::cin >> Tip_Lemn;
+            std::cout << "Nume magazin: ";
+            std::cin >> magazin;
+            bool gasit = false;
+            for (auto &i:Magazine) {
+                if (i.getNumeMagazin() == magazin) {
+                    gasit = true;
+                    Store = &i;
+                }
+
+            }
+            if (!gasit) {
+                Store = new Magazin_Chitare(magazin);
+                Magazine.push_back(*Store);
+            }
+
+            if(optiune=="Acustica")
+            {
+                std::ofstream f("Date.in", std::ios::app);
+                Nume="Chitara Acustica " + Nume;
+                std::cout<<"Tip corzi: ";
+                std::cin>>Tip_Corzi;
+                std::cout<<"Tip chitara: ";
+                std::cin>>Tip_Chitara;
+                P=new Chitara_Acustica (Nume, Numar_Corzi, Tip_Lemn, *Store, Tip_Corzi, Tip_Chitara);
+                V.push_back(P);
+                f<<Nume<<"\n";
+                f<<Numar_Corzi<<"\n";
+                f<<Tip_Lemn<<"\n";
+                f<<Store->getNumeMagazin()<<"\n";
+                f<<Tip_Corzi<<"\n";
+                f<<Tip_Chitara<<"\n";
+                f.close();
+
+            }
+            else if(optiune=="Electrica")
+            {
+                std::ofstream f("Date.in", std::ios::app);
+                Nume="Chitara Electrica " + Nume;
+                std::cout<<"Numar duze: ";
+                std::cin>>Numar_Duze;
+                std::cout<<"Tip EQ: ";
+                std::cin>>Tip_EQ;
+                std::cout<<"Are amplificator? (1-are, 0-nu are): ";
+                std::cin>>Amplificator;
+                if(Amplificator==1)
+                    Amp=new class Amplificator(true);
+                else
+                    Amp=new class Amplificator(false);
+                P= new Chitara_Electrica (Nume, Numar_Corzi, Tip_Lemn, *Store, Numar_Duze, Tip_EQ, Amp);
+                V.push_back(P);
+                f<<Nume<<"\n";
+                f<<Numar_Corzi<<"\n";
+                f<<Tip_Lemn<<"\n";
+                f<<Store->getNumeMagazin()<<"\n";
+                f<<Numar_Duze<<"\n";
+                f<<Tip_EQ<<"\n";
+                f<<Amp<<"\n";
+                f.close();
+
+            }
+            std::cout<<std::endl;
+
+        }
+        else if(optiune==3)
+        {
+            std::ofstream f("Date.in", std::ios::app);
+            int index;
+            std::string Nume_Client, Prenume_Client;
+            int Varsta;
+            std::string Adresa;
+            std::cout<<"Introduceti datele clientului \n";
+            std::cin.get();
+            std::cout<<"Numele Clientului: ";
+            std::cin>>Nume_Client;
+            std::cout<<"Prenume Clientului: ";
+            std::cin>>Prenume_Client;
+            Nume_Client=Nume_Client + Prenume_Client;
+            std::cout<<"Varsta clientului: ";
+            std::cin>>Varsta;
+            std::cout<<"Adresa Clientului unde se livreaza chitara: ";
+            std::cin>>Adresa;
+            std::cout<<std::endl;
+            std::cout<<"Alegeti chitara dorita de cumparator \n";
+            for(int i=0;i<V.size();i++)
+            {
+                std::cout<<i<<" ";
+                V[i]->Afisare();
+                std::cout<<std::endl;
+            }
+            std::cout<<"Introduceti indexul chitarii: ";
+            std::cin>>index;
+            V[index]->setNumeChitara(V[index]->getNumeChitara() + " Vanduta catre "+ Nume_Client + " la adresa " + Adresa);
+            for(int i=0;i<V.size();i++)
+            {
+                if(i==index)
+                    f<<V[index]->getNumeChitara();
+            }
+            std::cout<<"\nChitara cu indexul "<<index<<"a fost cumparata de "<<Nume_Client<<" la adresa: "<<Adresa;
+
+
+
+        }
+
+    }
+
 
     return 0;
 }

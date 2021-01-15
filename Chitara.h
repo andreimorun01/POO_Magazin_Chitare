@@ -58,5 +58,13 @@ public:
     void setMagazin(const Magazin_Chitare &magazin) {
         Chitara::magazin = magazin;
     }
+
+    virtual void Afisare()
+    {
+        std::cout<<Nume_Chitara<<std::endl;
+        std::cout<<Numar_Corzi<<std::endl;
+        std::cout<<Tip_Lemn<<std::endl;
+        std::cout<<magazin.getNumeMagazin()<<std::endl;
+    }
 };
 #endif //MAGAZIN_CHITARE_CHITARA_H

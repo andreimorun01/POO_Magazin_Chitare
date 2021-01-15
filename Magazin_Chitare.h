@@ -24,7 +24,7 @@ public:
 
     ~Magazin_Chitare()
     {
-        std::cout<<"Destructor ";
+
     }
 
     const std::string &getNumeMagazin() const {

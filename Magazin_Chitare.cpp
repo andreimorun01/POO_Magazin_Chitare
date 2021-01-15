@@ -6,7 +6,6 @@
 
 Magazin_Chitare::Magazin_Chitare(std::string Nume_Magazin)
 {
-    std::cout<<"Constructor ";
     this->Nume_Magazin=Nume_Magazin;
 
 }
