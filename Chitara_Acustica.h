@@ -12,6 +12,7 @@ class Chitara_Acustica : public Chitara
 private:
     std::string Tip_Corzi;
     std::string Tip_Chitara;
+    static Magazin_Chitare x;
 public:
    Chitara_Acustica(std::string Nume_Chitara, int Nr_Corzi, std::string Tip_Lemn, Magazin_Chitare magazin, std::string Tip_Corzi, std::string Tip_Chitara): Chitara(Nume_Chitara, Nr_Corzi, Tip_Lemn, magazin)
     {
@@ -19,6 +20,13 @@ public:
         this->Tip_Chitara=Tip_Chitara;
 
     }
+    class Chitara_Acustica_factory {
+    public:
+
+        static Chitara_Acustica MSA() { return Chitara_Acustica("Ch1", 6, "Lemn",  x, "tip_corzi", "tip_chitara"); }
+        static Chitara_Acustica Nashville() { return Chitara_Acustica("Ch2", 12, "Lemn",  x, "tip_corzi", "tip_chitara"); }
+        static Chitara_Acustica Yamaha() { return Chitara_Acustica("Ch3", 6, "Lemn",  x, "tip_corzi", "tip_chitara"); }
+    };
     ~Chitara_Acustica()
     {
 

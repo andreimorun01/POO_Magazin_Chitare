@@ -6,7 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <cstring>
-
+#include <stdexcept>
 
 
 /*void Cautare()
@@ -26,10 +26,10 @@ int main()
      Amplificator Amp;
      //std::cout<<std::endl;
      int y=0;
-     while(!f.eof())
+     while(f>>a)
     {
 
-        f>>a;
+        //f>>a;
         if(a == "Chitara"){
             f >>a;
             if (a == "acustica")
@@ -58,8 +58,11 @@ int main()
                 }
                 if(!gasit)
                 {
-                    Store = new Magazin_Chitare(magazin);
-                    Magazine.push_back(*Store);
+                    //Store = new Magazin_Chitare(magazin);
+                    //Magazine.push_back(*Store);
+                    Magazine.push_back(Magazin_Chitare(magazin));
+                    Store=&Magazine.back();
+
                 }
 
 
@@ -100,8 +103,10 @@ int main()
                 }
                 if(!gasit)
                 {
-                    Store = new Magazin_Chitare(magazin);
-                    Magazine.push_back(*Store);
+                    //Store = new Magazin_Chitare(magazin);
+                    //Magazine.push_back(*Store);
+                    Magazine.push_back(Magazin_Chitare(magazin));
+                    Store=&Magazine.back();
                 }
 
                 int c;
@@ -170,8 +175,11 @@ int main()
 
             }
             if (!gasit) {
-                Store = new Magazin_Chitare(magazin);
-                Magazine.push_back(*Store);
+               // Store = new Magazin_Chitare(magazin);
+                //Magazine.push_back(*Store);
+                Magazine.push_back(Magazin_Chitare(magazin));
+                Store=&Magazine.back();
+
             }
 
             if(optiune=="Acustica")
@@ -250,18 +258,31 @@ int main()
             }
             std::cout<<"Introduceti indexul chitarii: ";
             std::cin>>index;
-            V[index]->setNumeChitara(V[index]->getNumeChitara() + " Vanduta catre "+ Nume_Client + " la adresa " + Adresa);
+            try
+            {
+                V.at(index)->setNumeChitara(V.at(index)->getNumeChitara() + " Vanduta catre "+ Nume_Client + " la adresa " + Adresa);
+                std::cout<<"\nChitara cu indexul "<<index<<"a fost cumparata de "<<Nume_Client<<" la adresa: "<<Adresa<<"\n";
+            }
+            catch (std::out_of_range x)
+            {
+                x.what();
+                std::cout<<"Indexul nu este in range "<<x.what()<<"\n";
+            }
             for(int i=0;i<V.size();i++)
             {
                 if(i==index)
                     f<<V[index]->getNumeChitara();
             }
-            std::cout<<"\nChitara cu indexul "<<index<<"a fost cumparata de "<<Nume_Client<<" la adresa: "<<Adresa;
+
 
 
 
         }
 
+    }
+    for(auto & i : V)
+    {
+        delete i;
     }
 
 
